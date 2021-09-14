@@ -27,7 +27,7 @@ export const Manage = () => {
                 {value.users.length === 0
                 ?
                     <div className="alert alert-danger">
-                        No hay Usuarios Disponibles, debe crear uno ===><Link to="/create"> Aqui</Link>
+                        No hay Usuarios Disponibles, debe crear uno <Link to="/create"> Aqui</Link>
                     </div>
                 :
                     <>
