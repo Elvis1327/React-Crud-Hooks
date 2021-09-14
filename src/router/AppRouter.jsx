@@ -12,7 +12,7 @@ export const AppRouter = () => {
                 <Navbar />
                 <Switch>
                     <Route path="/create" component={Create} />
-                    <Route path="/create/:id" component={Create} />
+                    <Route path="/edit/:id" component={Create} />
                     <Route path="/manage" component={Manage} />
                     <Redirect to="/manage" />
                 </Switch>

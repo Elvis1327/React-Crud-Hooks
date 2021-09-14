@@ -13,7 +13,7 @@ export const useForm = (initialState) => {
 
 
 
-    return { handleOnChange , inputsData }
+    return { handleOnChange , inputsData, setInputsData }
 
 }
 

@@ -1,24 +1,35 @@
-import React from 'react';
-import { useFetch } from '../../hooks/useFetch';
-import { deleteOneUserFetch } from '../../helpers/crud-fetch';
+import React, { useContext, useEffect } from 'react';
+import { deleteOneUserFetch, getAllUsers } from '../../helpers/crud-fetch';
 import { Link } from 'react-router-dom';
+import { crudContext } from '../../context/crud/crudContext';
+import { TYPES } from '../../TYPES/types';
 
 export const Manage = () => {
 
-    const { loading, usuarios } = useFetch();
+    const { dispatch, value } = useContext(crudContext);
+    
+    useEffect(() => {
+        getAllUsers().then(res => {
+            dispatch({
+                type: TYPES.getAllUsers,
+                payload: res.users
+            });
+        });
+    }, [ dispatch ]);
 
     const deleteOneUser = async (id) => {
-        await deleteOneUserFetch(id);
-        const result = usuarios.filter(user => user._id !== id);
-        console.log(result)
-        return result;
+        const resp = await deleteOneUserFetch(id);
+        dispatch({
+            type: TYPES.deleteOneUser,
+            payload: resp.deletedUser._id
+        })
     };
 
 
 
     return (
         <div className="_manage-main-container">
-            {loading === true
+            {value.loading === true
             ?
             <div className="loading"></div>
             :
@@ -33,14 +44,14 @@ export const Manage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {usuarios.map(user => (
+                    {value.users.map(user => (
                         <tr key={user._id}>
                             <td>{user.nombre}</td>
                             <td>{user.email}</td>
                             <td>{user.sueldo}</td>
                             <td>
                                 <Link
-                                    to={`/create/${user._id}`}
+                                    to={`/edit/${user._id}`}
                                     className="_edit-button"
                                 >
                                     Editar

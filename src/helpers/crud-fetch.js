@@ -16,6 +16,10 @@ export const createOneUserFetch = async (body) => {
 export const deleteOneUserFetch = async (id) => {
     const { data } = await axios.delete(`${MAIN_URL}/api/delete-user/${id}`);
     return data;
+};
+export const editUserFetch = async (body) => {
+    const { data } = await axios.put(`${MAIN_URL}/api/edit-user/${body._id}`, body);
+    return data;
 }
 
 
