@@ -1,14 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { createOneUserFetch } from '../../helpers/crud-fetch';
 import { useForm } from '../../hooks/useForm';
 import { crudContext } from '../../context/crud/crudContext';
-import { TYPES } from '../../TYPES/types';
 
 export const Create = () => {
 
     const { id } = useParams();
-    const { dispatch, value, updateOneUserDispatch } =  useContext(crudContext);
+    const { value, updateOneUserDispatch, createUserDispatch } =  useContext(crudContext);
     const { handleOnChange, inputsData, setInputsData } = useForm({
         _id: '',
         nombre: '',
@@ -38,11 +36,7 @@ export const Create = () => {
         if(id){
             updateOneUserDispatch(inputsData)
         }else{
-            const resp = await createOneUserFetch(inputsData);
-            dispatch({
-                type: TYPES.createUser,
-                payload: resp.usuario
-            })
+            createUserDispatch(inputsData)
         }
     }
 
